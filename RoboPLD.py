@@ -3,7 +3,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 from datetime import datetime
 
-driver = webdriver.Chrome(executable_path=r'C:\Users\Diego Neri\Documents\Cursos\Python\Selenium\chromedriver.exe')
+driver = webdriver.Chrome(executable_path=caminho)
 driver.set_window_size(1024, 600)
 driver.maximize_window()
 driver.get(
@@ -103,13 +103,13 @@ driver.get('https://twitter.com/login')
 time.sleep(5)
 
 driver.find_element_by_name('session[username_or_email]').send_keys("PldHorario")
-driver.find_element_by_name("session[password]").send_keys("deusdeus" + Keys.RETURN)
+driver.find_element_by_name("session[password]").send_keys(senha + Keys.RETURN)
 time.sleep(5)
 
 try:
   write_tweet(write_tweet_se)
 except:
-  autenticacao = driver.find_element_by_xpath('//*[@id="challenge_response"]').send_keys("51994380449" + Keys.RETURN)
+  autenticacao = driver.find_element_by_xpath('//*[@id="challenge_response"]').send_keys(celular + Keys.RETURN)
   time.sleep(5)
   write_tweet(write_tweet_se)
 write_tweet_se[0].send_keys(
