@@ -3,9 +3,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 from datetime import datetime
 
-hoje = datetime.today().strftime('%d/%m/%Y')
-
-driver = webdriver.Chrome(executable_path='/home/diego/Documentos/Python/Selenium/chromedriver')
+driver = webdriver.Chrome(executable_path=r'C:\Users\Diego Neri\Documents\Cursos\Python\Selenium\chromedriver.exe')
 driver.set_window_size(1024, 600)
 driver.maximize_window()
 driver.get(
@@ -66,6 +64,15 @@ def captura_informacoes(atual, minimo, hr_min, medio, maximo, hr_max):
     print(atual, minimo, hr_min, medio, maximo, hr_max)
 
 
+hoje = datetime.today().strftime('%d/%m/%Y')
+#while True:
+driver.get(
+    'https://www.ccee.org.br/portal/faces/pages_publico/o-que-fazemos/como_ccee_atua/precos/preco_horario?_afrLoop'
+    '=131575298728896&_adf.ctrl-state=70mm2vyzk_54#!%40%40%3F_afrLoop%3D131575298728896%26_adf.ctrl-state'
+    '%3D70mm2vyzk_58')
+
+time.sleep(5)
+
 hora = driver.find_element_by_xpath('//*[@id="horaAtual"]').text
 lista_horas.append(hora)
 
@@ -93,13 +100,18 @@ captura_informacoes(lista_pld_atual_n, lista_pld_min_n, lista_pld_hora_min_n,
 ###### TWITTER ######
 
 driver.get('https://twitter.com/login')
-time.sleep(1)
+time.sleep(5)
 
 driver.find_element_by_name('session[username_or_email]').send_keys("PldHorario")
 driver.find_element_by_name("session[password]").send_keys("deusdeus" + Keys.RETURN)
 time.sleep(5)
 
-write_tweet(write_tweet_se)
+try:
+  write_tweet(write_tweet_se)
+except:
+  autenticacao = driver.find_element_by_xpath('//*[@id="challenge_response"]').send_keys("51994380449" + Keys.RETURN)
+  time.sleep(5)
+  write_tweet(write_tweet_se)
 write_tweet_se[0].send_keys(
     "PLD Horário \nData: {}\nHora: {}\n\nSE/CO\n\nAtual: {} R$/MWh\nMínimo: {} R$/MWh\nHora Mínimo: {}"
     "\nMédio: {} R$/MWh\nMáximo: {} R$/MWh\nHora Máximo: {}"
@@ -141,9 +153,5 @@ write_tweet_n[0].send_keys(
 
 time.sleep(1)
 send_tweet()
-
-"""notifications_xpath = '//*[@id="react-root"]/div/div/div[2]/header/div/div/div/div[1]/div[2]/nav/a[3]/div/div/svg'
-driver.find_element_by_xpath(notifications_xpath)
-time.sleep(3)"""
 
 driver.close()
