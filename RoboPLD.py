@@ -2,10 +2,20 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 from datetime import datetime
+import os
 
-driver = webdriver.Chrome(executable_path=caminho)
-driver.set_window_size(1024, 600)
-driver.maximize_window()
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+chrome_options.add_argument('--headless')
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--disable-dev-shm-usage')
+
+driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+
+#driver = webdriver.Chrome(executable_path=caminho)
+#driver.set_window_size(1024, 600)
+#driver.maximize_window()
+
 driver.get(
     'https://www.ccee.org.br/portal/faces/pages_publico/o-que-fazemos/como_ccee_atua/precos/preco_horario?_afrLoop'
     '=131575298728896&_adf.ctrl-state=70mm2vyzk_54#!%40%40%3F_afrLoop%3D131575298728896%26_adf.ctrl-state'
