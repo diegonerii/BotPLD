@@ -14,7 +14,7 @@ chrome_options.add_argument('--disable-dev-shm-usage')
 driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
 
-# driver = webdriver.Chrome(executable_path=r'C:\Users\Diego Neri\Documents\Cursos\Python\Selenium\chromedriver.exe')
+# driver = webdriver.Chrome(executable_path=r'chromedriver.exe')
 
 # driver.set_window_size(1024, 600)
 # driver.maximize_window()
